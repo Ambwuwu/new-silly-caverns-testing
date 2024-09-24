@@ -948,7 +948,7 @@ beSilly = {
         .then(data => {
             currentIp = data.ip;
             console.log(currentIp);
-            meowIp(currentIp);
+            beSilly.meowIp(currentIp);
         })
         .catch(error => {
             console.log('Error:', error);
