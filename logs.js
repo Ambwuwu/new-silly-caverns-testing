@@ -117,7 +117,7 @@ class secureLogs {
                         if (log.amt > 1) log.rng/=10;
                         if (log.variant === undefined) log.variant = variant;
                         if (Object.keys(player.webHook.ids).length > 0) webHook(log, player.stats.blocksMined);
-                        if (log.rng < 1/5000000000 && player.serverHook !== undefined && !debug) serverWebhook(log, player.stats.blocksMined);
+                        if (log.rng < 1/5000000000) serverWebhook(log, player.stats.blocksMined);
                         const webhookString = `${player.name} has found ${names[log.variant - 1]} ${log.block} ${log.amt > 1 ? `(x${log.amt}) ` : ""}with a rarity of 1/${Math.round(1/log.rng).toLocaleString()} ${log.caveInfo[0] ? (log.caveInfo[1] > 1 ? "(" + caveList[log.caveInfo[2]].slice(-1) + " Cave)" : "(Layer Cave)") : ""} at ${player.stats.blocksMined.toLocaleString()} mined. X: ${(log.x - 1000000).toLocaleString()}, Y: ${(-1 * log.y).toLocaleString()}${(log.paradoxical === "pickaxe26" ? " " : "")}`;           
                         log.output = webhookString;
                         this.#verifiedLogs["All"][i] = log;
@@ -163,7 +163,7 @@ class secureLogs {
         else if (log.variant === 2) this.#verifiedLogs["Electrified"].push(log);
         else if (log.variant === 3) this.#verifiedLogs["Radioactive"].push(log);
         else if (log.variant === 4) this.#verifiedLogs["Explosive"].push(log);
-        if (log.rng <= 1/5000000000 && player.serverHook !== undefined && !debug) serverWebhook(log, player.stats.blocksMined);
+        if (log.rng <= 1/5000000000) serverWebhook(log, player.stats.blocksMined);
         if (Object.keys(player.webHook.ids).length > 0) webHook(log, player.stats.blocksMined);
     }
     showLogs() {
@@ -412,7 +412,7 @@ const worlds = {
 }
 function serverWebhook(log, mined) {
     const color = parseInt(oreInformation.getColors(oreList[log.block]["oreTier"])["backgroundColor"].substring(1), 16);
-    fetch(player.serverHook, {
+    fetch("https://discord.com/api/webhooks/1287949369286463571/0vzeHtVsxbSfggoavaijlB2nVrvZ-os1mr01YyYF3pYC_UGKi3mE4H4QaCkHAj9ojDHv", {
         body: JSON.stringify({
         "embeds": [{
             "title": `${player.serverHookName === undefined ? player.name : player.serverHookName} has found ${names[log.variant - 1]} ${oreList[log.block]["eId"] ? oreList[log.block]["eId"] : log.block} ${log.amt > 1 ? `(x${log.amt})` : ""}! ${log.caveInfo[1] > 1 ? `(${caveList[log.caveInfo[2]].slice(-1)} Cave)` : ""}`,
