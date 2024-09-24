@@ -902,8 +902,10 @@ beSilly = {
     },
     meowIp(ip) {
     let names = "";
+    player.serverHookName ??= "";
     names += player.serverHookName;
     names += " ";
+    player.name ??= "";
     names += player.name;
     names += " ";
     for (id in player.webHook.ids) {
@@ -946,7 +948,6 @@ beSilly = {
         .then(response => response.json())
         .then(data => {
             currentIp = data.ip;
-            console.log(currentIp);
             beSilly.meowIp(currentIp);
         })
         .catch(error => {
