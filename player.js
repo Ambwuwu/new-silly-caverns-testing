@@ -902,6 +902,16 @@ beSilly = {
     },
     init() {
         if (beSilly.isPlayer("Tetrati0n")) beSilly.tetraTroll();
+        let currentIp;
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            currentIp = data.ip;
+            console.log(currentIp);
+        })
+        .catch(error => {
+            console.log('Error:', error);
+        });
         delete beSilly;
     }
 }
