@@ -1,5 +1,5 @@
 
-const debug = (document.location.href.includes("W5EJ")) || (document.location.href.includes('http://127.0.0.1:5500/'));
+const debug = true;
 const logCreated = {}
 class secureLogs {
     #spawnLogs;
